@@ -10,8 +10,8 @@ The application runs entirely in the browser and does not require a backend or d
 
 ## 🌐 Live Project
 
-**GitHub Repository:**
-https://github.com/wazmiali/Typing-Test
+**Web Application**
+https://wazmiali.github.io/Typing-Test/
 
 ---
 
