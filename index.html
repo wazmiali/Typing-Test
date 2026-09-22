@@ -153,6 +153,7 @@
 
     .app {
       max-width: 920px;
+      width: 100%;
       margin: 0 auto;
       padding: 0 20px 60px;
     }
@@ -174,6 +175,7 @@
       font-weight: 800;
       font-size: 19px;
       letter-spacing: -0.02em;
+      flex: none;
     }
 
     .logo svg {
@@ -745,8 +747,15 @@
       font-weight: 600;
     }
 
+    .table-scroll {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
     table.history {
       width: 100%;
+      min-width: 460px;
       border-collapse: collapse;
       font-size: 13.5px;
     }
@@ -1017,22 +1026,98 @@
       transform: translateX(-50%) translateY(0);
     }
 
+    /* ---------------------------------------------------------
+       RESPONSIVE
+    --------------------------------------------------------- */
+    @media (max-width:900px) {
+      .app {
+        padding: 0 16px 50px;
+      }
+    }
+
     @media (max-width:600px) {
+      .app {
+        padding: 0 12px 40px;
+      }
+
+      header.top {
+        padding: 14px 0;
+      }
+
+      .logo {
+        font-size: 17px;
+      }
+
+      .config-bar {
+        gap: 5px;
+        margin: 14px 0 24px;
+      }
+
+      .config-group button {
+        padding: 6px 9px;
+        font-size: 13px;
+      }
+
+      .toggle-pill,
+      select.custom-select {
+        padding: 6px 9px;
+        font-size: 13px;
+      }
+
       .words {
         font-size: 20px;
         line-height: 1.65;
       }
 
-      .headline .num {
-        font-size: 56px;
+      .live-stats {
+        gap: 16px;
+      }
+
+      .live-stat .val {
+        font-size: 26px;
+      }
+
+      .timer-display {
+        font-size: 28px;
+      }
+
+      .test-actions .btn {
+        padding: 9px 14px;
+        font-size: 13.5px;
+      }
+
+      .shortcuts-hint {
+        gap: 10px;
+        font-size: 11px;
       }
 
       .headline {
         gap: 30px;
       }
 
+      .headline .num {
+        font-size: 56px;
+      }
+
       .sub-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+
+      .grid-cards {
         grid-template-columns: repeat(2, 1fr);
+      }
+
+      .graph-wrap {
+        padding: 12px;
+      }
+
+      .auth-box {
+        margin: 16px auto;
+        padding: 20px;
+      }
+
+      .about-body {
+        font-size: 14px;
       }
 
       nav.primary {
@@ -1041,6 +1126,270 @@
         justify-content: center;
         padding-top: 8px;
         border-top: 1px solid var(--border);
+      }
+    }
+
+    @media (max-width:420px) {
+      .logo span,
+      .logo {
+        font-size: 15px;
+      }
+
+      nav.primary {
+        gap: 2px;
+      }
+
+      nav.primary button {
+        padding: 6px 8px;
+        font-size: 12.5px;
+      }
+
+      .words {
+        font-size: 17px;
+        line-height: 1.6;
+      }
+
+      .headline {
+        gap: 20px;
+      }
+
+      .headline .num {
+        font-size: 42px;
+      }
+
+      .sub-grid,
+      .grid-cards {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+
+      .card,
+      .sub-card {
+        padding: 10px 8px;
+      }
+
+      .card .v {
+        font-size: 20px;
+      }
+
+      table.history {
+        font-size: 12px;
+        min-width: 380px;
+      }
+
+      table.history th,
+      table.history td {
+        padding: 7px 6px;
+      }
+
+      .test-actions {
+        flex-wrap: wrap;
+      }
+    }
+
+    @media (max-width:340px) {
+      .words {
+        font-size: 15px;
+      }
+
+      .headline .num {
+        font-size: 36px;
+      }
+    }
+    /* AI Typing Coach */
+    .ai-fab {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 60;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      padding: 12px 16px;
+      border-radius: 30px;
+      font-size: 13.5px;
+      font-weight: 700;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, .35);
+      transition: transform .15s, opacity .15s;
+    }
+
+    .ai-fab:hover {
+      transform: translateY(-2px);
+    }
+
+    .ai-fab.hide {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px);
+    }
+
+    .ai-chat-panel {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 61;
+      width: 360px;
+      max-width: calc(100vw - 32px);
+      height: 520px;
+      max-height: calc(100vh - 40px);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 16px 50px rgba(0, 0, 0, .45);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(16px) scale(.98);
+      pointer-events: none;
+      transition: opacity .18s ease, transform .18s ease;
+    }
+
+    .ai-chat-panel.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .ai-chat-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 14px 14px 16px;
+      border-bottom: 1px solid var(--border);
+      flex: none;
+    }
+
+    .ai-chat-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 14.5px;
+      color: var(--accent);
+    }
+
+    .ai-chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .ai-msg {
+      max-width: 86%;
+      padding: 9px 12px;
+      border-radius: 12px;
+      font-size: 13.5px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .ai-msg.bot {
+      align-self: flex-start;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-bottom-left-radius: 3px;
+    }
+
+    .ai-msg.user {
+      align-self: flex-end;
+      background: var(--accent);
+      color: var(--bg);
+      border-bottom-right-radius: 3px;
+      font-weight: 500;
+    }
+
+    .ai-chat-suggestions {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      padding: 0 16px 10px;
+      flex: none;
+    }
+
+    .ai-chat-suggestions .chip {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 20px;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+
+    .ai-chat-suggestions .chip:hover {
+      color: var(--text);
+      border-color: var(--muted);
+    }
+
+    .ai-chat-input-row {
+      display: flex;
+      gap: 8px;
+      padding: 12px 14px;
+      border-top: 1px solid var(--border);
+      flex: none;
+    }
+
+    .ai-chat-input-row input {
+      flex: 1;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 9px 12px;
+      border-radius: 9px;
+      font-size: 13.5px;
+      font-family: inherit;
+      min-width: 0;
+    }
+
+    .ai-chat-input-row .btn {
+      padding: 9px 13px;
+    }
+
+    .ai-chat-input-row input:disabled,
+    .ai-chat-input-row button:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
+
+    .ai-chat-note {
+      font-size: 11.5px;
+      color: var(--muted);
+      padding: 0 16px 12px;
+      flex: none;
+    }
+
+    .ai-chat-note:empty {
+      display: none;
+    }
+
+    @media (max-width:600px) {
+      .ai-fab span {
+        display: none;
+      }
+
+      .ai-fab {
+        right: 14px;
+        bottom: 14px;
+        padding: 13px;
+        border-radius: 50%;
+      }
+
+      .ai-chat-panel {
+        right: 10px;
+        left: 10px;
+        bottom: 10px;
+        width: auto;
+        max-width: none;
+        height: min(70vh, 520px);
       }
     }
   </style>
@@ -1126,9 +1475,9 @@
           </div>
           <div class="words-wrap" id="wordsWrap" role="textbox" aria-label="Typing test area. Start typing to begin.">
             <div class="words" id="wordsEl"></div>
-            <input class="hidden-input" id="hiddenInput" type="text" autocomplete="off" autocapitalize="off"
-              autocorrect="off" spellcheck="false" aria-label="Typing input">
           </div>
+          <input class="hidden-input" id="hiddenInput" type="text" autocomplete="off" autocapitalize="off"
+            autocorrect="off" spellcheck="false" aria-label="Typing input">
         </div>
 
         <div class="test-actions">
@@ -1212,19 +1561,21 @@
       <!-- LEADERBOARD VIEW -->
       <section class="view" id="view-leaderboard">
         <div class="lb-filters" id="lbFilters"></div>
-        <table class="history">
-          <thead>
-            <tr>
-              <th>Rank</th>
-              <th>Name</th>
-              <th>WPM</th>
-              <th>Accuracy</th>
-              <th>Mode</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody id="lbBody"></tbody>
-        </table>
+        <div class="table-scroll">
+          <table class="history">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Name</th>
+                <th>WPM</th>
+                <th>Accuracy</th>
+                <th>Mode</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody id="lbBody"></tbody>
+          </table>
+        </div>
         <div id="lbEmpty"></div>
         <p style="color:var(--muted); font-size:12px; margin-top:18px;">This leaderboard is stored locally on this
           device (guest mode). A synced, multi-user leaderboard needs a backend server — see the About page.</p>
@@ -1348,6 +1699,54 @@
   </div>
 
   <div class="toast" id="toast"></div>
+
+  <!-- AI TYPING COACH -->
+  <button class="ai-fab" id="aiFabBtn" aria-haspopup="dialog" aria-expanded="false" aria-controls="aiChatPanel"
+    title="Typing tips assistant">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+      stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+    </svg>
+    <span>Typing Tips</span>
+  </button>
+
+  <div class="ai-chat-panel" id="aiChatPanel" role="dialog" aria-modal="false" aria-label="Typing tips assistant">
+    <div class="ai-chat-header">
+      <div class="ai-chat-title">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+        </svg>
+        Typing Coach
+      </div>
+      <button class="icon-btn" id="aiChatClose" aria-label="Close chat" style="width:30px;height:30px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+          stroke-linecap="round">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+    </div>
+    <div class="ai-chat-messages" id="aiChatMessages">
+      <div class="ai-msg bot">Hi! I'm your typing coach. Ask me for technique tips, practice advice, or how any part of Keystride works.</div>
+    </div>
+    <div class="ai-chat-suggestions" id="aiChatSuggestions">
+      <button type="button" class="chip">How do I type faster?</button>
+      <button type="button" class="chip">Proper finger placement</button>
+      <button type="button" class="chip">Why is my accuracy low?</button>
+      <button type="button" class="chip">Who is Wazmi Ali?</button>
+    </div>
+    <form class="ai-chat-input-row" id="aiChatForm">
+      <input type="text" id="aiChatInput" placeholder="Ask about typing technique..." autocomplete="off" />
+      <button class="btn primary" type="submit" aria-label="Send">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 2 11 13" />
+          <path d="M22 2 15 22l-4-9-9-4 20-7z" />
+        </svg>
+      </button>
+    </form>
+    <div class="ai-chat-note" id="aiChatNote"></div>
+  </div>
 
   <script>
     (function () {
@@ -1700,40 +2099,62 @@
 
       /*
        * Keep the current typing line visible without scrolling the whole page.
-       * The scroll happens only inside .words-wrap and only when the caret reaches
-       * the lower/upper edge of the visible typing area.
+       * The scroll happens only inside .words-wrap. As soon as the caret moves
+       * to a new visual line, that line is snapped to the top of the visible
+       * area (minus a small padding), so the words the user is about to type
+       * are always the ones on screen.
        */
       let lastCaretLine = -1;
 
-      function ensureCaretVisible(caret) {
+      function getLineHeight() {
+        const style = getComputedStyle(wordsEl);
+        let lh = parseFloat(style.lineHeight);
+        if (!lh || Number.isNaN(lh)) {
+          // 'normal' or unresolved line-height: fall back to the CSS ratio (1.7x font-size)
+          const fs = parseFloat(style.fontSize) || 26;
+          lh = fs * 1.7;
+        }
+        return lh;
+      }
+
+      function ensureCaretVisible(caret, force) {
         if (!caret || !wordsWrap) return;
 
         const wrapRect = wordsWrap.getBoundingClientRect();
+        // Wrap isn't laid out yet (e.g. view not visible) — nothing to scroll.
+        if (wrapRect.height === 0) return;
+
         const caretRect = caret.getBoundingClientRect();
-        const style = getComputedStyle(wordsEl);
-        const lineHeight = parseFloat(style.lineHeight) || 40;
+        const lineHeight = getLineHeight();
 
         // Calculate the actual visual line from the caret's screen position.
         // This avoids offsetTop errors with inline character spans and wrapped text.
-        const visualLine = Math.round((caretRect.top - wrapRect.top + wordsWrap.scrollTop) / lineHeight);
+        const relativeTop = caretRect.top - wrapRect.top + wordsWrap.scrollTop;
+        const visualLine = Math.round(relativeTop / lineHeight);
 
-        // Only move the internal scroll when the caret enters a different visual line.
-        if (visualLine === lastCaretLine) return;
+        // Only move the internal scroll when the caret enters a different visual
+        // line (or when forced, e.g. right after a resize / view change).
+        if (!force && visualLine === lastCaretLine) return;
         lastCaretLine = visualLine;
 
-        const topGap = lineHeight * 0.75;
-        const bottomGap = lineHeight * 1.25;
+        const topPad = lineHeight * 0.5;
         const currentScroll = wordsWrap.scrollTop;
+        const maxScroll = Math.max(0, wordsWrap.scrollHeight - wordsWrap.clientHeight);
+
+        // Line's own scroll position within the full text block.
+        const lineTop = visualLine * lineHeight;
         let targetScroll = currentScroll;
 
-        if (caretRect.bottom > wrapRect.bottom - bottomGap) {
-          targetScroll = currentScroll + (caretRect.bottom - (wrapRect.bottom - bottomGap));
-        } else if (caretRect.top < wrapRect.top + topGap) {
-          targetScroll = currentScroll - ((wrapRect.top + topGap) - caretRect.top);
+        if (lineTop - topPad < currentScroll) {
+          // Caret's line is above the visible area (or too close to the top edge).
+          targetScroll = Math.max(0, lineTop - topPad);
+        } else if (lineTop + lineHeight > currentScroll + wrapRect.height - topPad) {
+          // Caret's line is below the visible area — bring it to the top instead
+          // of only nudging, so the next lines are immediately visible too.
+          targetScroll = Math.max(0, lineTop - topPad);
         }
 
-        const maxScroll = Math.max(0, wordsWrap.scrollHeight - wordsWrap.clientHeight);
-        targetScroll = Math.max(0, Math.min(targetScroll, maxScroll));
+        targetScroll = Math.min(targetScroll, maxScroll);
 
         // IMPORTANT: direct scrolling only. No smooth animation, so there is no
         // queued up/down animation fighting with the next keystroke.
@@ -2041,7 +2462,7 @@
           const d = new Date(h.date);
           return `<tr><td>${d.toLocaleDateString()}</td><td>${h.mode}</td><td>${h.param}${h.mode === 'time' ? 's' : ''}</td><td>${h.wpm}</td><td>${h.accuracy}%</td></tr>`;
         }).join('');
-        $('#statsHistory').innerHTML = `<table class="history"><thead><tr><th>Date</th><th>Mode</th><th>Setting</th><th>WPM</th><th>Accuracy</th></tr></thead><tbody>${rows}</tbody></table>`;
+        $('#statsHistory').innerHTML = `<div class="table-scroll"><table class="history"><thead><tr><th>Date</th><th>Mode</th><th>Setting</th><th>WPM</th><th>Accuracy</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 
         // personal bests block, injected above history if available
         const bestKeys = Object.keys(personalBests);
@@ -2157,6 +2578,163 @@
       }
 
       /* ---------------------------------------------------------
+         AI TYPING COACH (chat)
+         Uses the Claude "sample" runtime capability when this page is
+         viewed inside Claude. Design for absence: if the capability
+         isn't available, the panel says so and the send button is
+         disabled — nothing else on the page depends on it.
+      --------------------------------------------------------- */
+      function initAIChat() {
+        const fab = $('#aiFabBtn');
+        const panel = $('#aiChatPanel');
+        const closeBtn = $('#aiChatClose');
+        const messagesEl = $('#aiChatMessages');
+        const form = $('#aiChatForm');
+        const input = $('#aiChatInput');
+        const sendBtn = form.querySelector('button');
+        const note = $('#aiChatNote');
+        const suggestions = $('#aiChatSuggestions');
+        if (!fab || !panel || !form) return;
+
+        // --- About-this-app reference info the coach is allowed to use ---
+        // Edit WAZMI_BIO with a real bio; until then the coach says a bio
+        // hasn't been added yet rather than inventing one.
+        const WAZMI_BIO = `Wazmi Ali is the creator of Keystride (TypingWazmi). No further bio has been added yet — the site owner can fill this in.`;
+        const SITE_INFO = `
+App name: Keystride, also shown in the header as "TypingWazmi".
+What it is: a minimal, keyboard-focused typing speed test that measures WPM, accuracy and consistency in real time.
+Test modes: Time (type for a fixed duration), Words (type a fixed word count), Quote (type a set quote), Zen (no timer or targets, type freely), Numbers, Code (typing code snippets), Custom (paste your own text via the "Custom" mode button, which opens a text box).
+Options while testing: toggle punctuation, toggle numbers, and a word-difficulty selector (easy / medium / hard).
+Scoring: Net WPM = (correct characters / 5) / minutes elapsed. Raw WPM uses all typed characters regardless of correctness. Accuracy = correct characters / total characters typed. Consistency reflects how steady the WPM was during the test.
+Shortcuts: Tab restarts the test, Esc stops/resets it, Ctrl+Enter starts a new test.
+Other views: Statistics (history, personal bests, WPM graph), Leaderboard (local, per-device), Settings (theme, font, font size, sound, smooth caret, live WPM/accuracy toggles, default mode), a simple local Profile/login, and an About page.
+Everything is stored locally in the browser (local storage) — no account is required to use it; login is an optional local-only profile.
+Creator / brand: ${WAZMI_BIO}`.trim();
+
+        const SYSTEM_TURN = {
+          role: 'user',
+          content: `You are "Coach", the friendly built-in assistant inside a typing-speed-test web app.
+Your job, in order of priority:
+1. Give clear, encouraging, practical typing tips: touch-typing technique, home-row finger placement, posture, building speed without losing accuracy, fixing specific error patterns, warm-ups and practice routines.
+2. Explain how to use THIS app (its modes, settings, stats, shortcuts) using only the reference info below — never invent a feature that isn't listed there.
+3. If asked who Wazmi Ali is, or about the app's creator/brand, answer using exactly the bio in the reference info — do not add biographical facts that aren't there.
+Keep replies short: 2-6 sentences, or a brief "- " bulleted list. Plain text only, no markdown headers or asterisks. Stay on typing/this app; if asked something unrelated, briefly say so and steer back.
+
+Reference info about this app:
+${SITE_INFO}`
+        };
+
+        let turns = [];
+        let sampleFn = null;
+        let capabilityChecked = false;
+        let controller = null;
+
+        async function ensureSample() {
+          if (capabilityChecked) return sampleFn;
+          capabilityChecked = true;
+          try {
+            if (window.claude && typeof window.claude.use === 'function') {
+              sampleFn = await window.claude.use('sample');
+            }
+          } catch (e) { sampleFn = null; }
+          if (!sampleFn) {
+            note.textContent = "AI chat isn't available in this view — try opening this page inside Claude.";
+            input.disabled = true;
+            sendBtn.disabled = true;
+            suggestions.querySelectorAll('.chip').forEach(c => c.disabled = true);
+          }
+          return sampleFn;
+        }
+
+        function addMessage(role, text) {
+          const div = document.createElement('div');
+          div.className = 'ai-msg ' + role;
+          div.textContent = text;
+          messagesEl.appendChild(div);
+          messagesEl.scrollTop = messagesEl.scrollHeight;
+          return div;
+        }
+
+        function openPanel() {
+          panel.classList.add('show');
+          fab.classList.add('hide');
+          fab.setAttribute('aria-expanded', 'true');
+          ensureSample();
+          input.focus();
+        }
+        function closePanel() {
+          panel.classList.remove('show');
+          fab.classList.remove('hide');
+          fab.setAttribute('aria-expanded', 'false');
+          if (controller) controller.abort();
+        }
+
+        fab.addEventListener('click', () => {
+          panel.classList.contains('show') ? closePanel() : openPanel();
+        });
+        closeBtn.addEventListener('click', closePanel);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && panel.classList.contains('show')) closePanel();
+        });
+
+        const ERROR_COPY = {
+          not_granted: "I need permission to answer — send your question again and allow the request when asked.",
+          rate_limited: "I'm getting a lot of questions at once — try again in a moment.",
+          refused: "I can't help with that one — try asking about typing technique or the app instead.",
+          empty_completion: "I didn't catch that — could you ask it a different way?",
+          upstream_error: "Something went wrong on my end — try again in a moment."
+        };
+
+        async function ask(question) {
+          const sample = await ensureSample();
+          if (!sample) return;
+
+          addMessage('user', question);
+          turns.push({ role: 'user', content: question });
+          if (turns.length > 12) turns = turns.slice(-12); // keep context small; instructions turn is added fresh each call
+          const botDiv = addMessage('bot', 'Thinking…');
+          input.value = '';
+          input.disabled = true;
+          sendBtn.disabled = true;
+
+          controller = new AbortController();
+          try {
+            const convo = [SYSTEM_TURN, ...turns];
+            const { text } = await sample(convo, {
+              modelTier: 'quick',
+              cache: false,
+              signal: controller.signal,
+              onText: ({ text }) => { botDiv.textContent = text; messagesEl.scrollTop = messagesEl.scrollHeight; }
+            });
+            turns.push({ role: 'assistant', content: text });
+          } catch (e) {
+            if (e && e.code === 'cancelled') {
+              botDiv.remove();
+            } else {
+              botDiv.textContent = (e && ERROR_COPY[e.code]) || "Something went wrong — try again in a moment.";
+            }
+          } finally {
+            input.disabled = false;
+            sendBtn.disabled = false;
+            input.focus();
+          }
+        }
+
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const q = input.value.trim();
+          if (!q) return;
+          ask(q);
+        });
+
+        suggestions.addEventListener('click', (e) => {
+          const chip = e.target.closest('.chip');
+          if (!chip || chip.disabled) return;
+          ask(chip.textContent);
+        });
+      }
+
+      /* ---------------------------------------------------------
          INIT
       --------------------------------------------------------- */
       function init() {
@@ -2165,9 +2743,19 @@
         $$('#modeGroup button').forEach(b => b.classList.toggle('active', b.dataset.mode === config.mode));
         renderParamGroup();
         resetTest();
+        initAIChat();
+        let resizeTimer = null;
         window.addEventListener('resize', () => {
           if (views.results.classList.contains('active')) drawGraph($('#resGraph'), history[0] ? history[0].samples : []);
           if (views.stats.classList.contains('active')) renderStats();
+          // Re-sync the caret's scroll position after any viewport/orientation
+          // change (font sizes and line wrapping can shift), instead of waiting
+          // for the next keystroke to notice the caret is off-screen.
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(() => {
+            const cur = wordsEl.querySelector('.ch.cur');
+            if (cur) ensureCaretVisible(cur, true);
+          }, 120);
         });
       }
       init();
