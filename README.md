@@ -30,7 +30,8 @@ The application provides several typing modes:
 * **Custom Text Mode** — Type your own custom text.
 
 ---
-<img width="1593" height="855" alt="image" src="https://github.com/user-attachments/assets/4551aad7-f7e8-4b5d-be90-4c1d5bc9cefb" />
+<img width="1891" height="847" alt="image" src="https://github.com/user-attachments/assets/f7d64b14-d3e5-4be9-a514-eee04b8f0d30" />
+
 
 ## ⏱️ Custom Test Durations
 
