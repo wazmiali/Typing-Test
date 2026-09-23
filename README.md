@@ -32,6 +32,8 @@ The application provides several typing modes:
 ---
 <img width="1891" height="847" alt="image" src="https://github.com/user-attachments/assets/f7d64b14-d3e5-4be9-a514-eee04b8f0d30" />
 
+---
+
 <img width="1917" height="850" alt="image" src="https://github.com/user-attachments/assets/02478e34-1eae-4ade-9721-82f90ab60602" />
 
 ## ⏱️ Custom Test Durations
