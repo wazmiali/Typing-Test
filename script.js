@@ -519,9 +519,12 @@
   const FONT_MAP = {
     jb: "ui-monospace,'SF Mono','Cascadia Code','Fira Code','JetBrains Mono',Consolas,'Liberation Mono',monospace",
     fira: "ui-monospace,'SF Mono','Cascadia Code','Fira Code',Consolas,'Liberation Mono',monospace",
-    roboto: "ui-monospace,'SF Mono','Cascadia Code',Consolas,'Liberation Mono',monospace",
-    courier: "'Courier Prime',ui-monospace,'SF Mono',Consolas,'Liberation Mono',monospace",
-    system: "ui-monospace,'SF Mono','Cascadia Code',Consolas,'Liberation Mono',monospace",
+    roboto:
+      "ui-monospace,'SF Mono','Cascadia Code',Consolas,'Liberation Mono',monospace",
+    courier:
+      "'Courier Prime',ui-monospace,'SF Mono',Consolas,'Liberation Mono',monospace",
+    system:
+      "ui-monospace,'SF Mono','Cascadia Code',Consolas,'Liberation Mono',monospace",
   };
   const SIZE_MAP = { sm: "19px", md: "26px", lg: "32px", xl: "40px" };
 
@@ -652,7 +655,7 @@
       --------------------------------------------------------- */
   let config = {
     mode: settings.defaultMode || "time",
-    time: 30,
+    time: 60,
     wordCount: 25,
     quoteLen: "medium",
     customText: "",
@@ -1000,6 +1003,7 @@
     hiddenInput.value = "";
     processInput._lastLen = 0;
     elapsedMs = 0;
+    startTime = null;
     mistakesCount = 0;
     backspaceCount = 0;
     correctCount = 0;
@@ -1030,6 +1034,7 @@
   }
 
   function tick() {
+    if (!startTime) return;
     elapsedMs = performance.now() - startTime;
     const secs = elapsedMs / 1000;
     if (config.mode === "time") {
@@ -1662,257 +1667,701 @@
   var TYPING_KNOWLEDGE = [
     {
       topic: "home row finger placement",
-      keywords: ["home row", "finger placement", "where to put fingers", "hand position", "basic finger position", "starting position", "home keys"],
-      answer: "Place your left hand on A, S, D, F and your right hand on J, K, L, semicolon. Your index fingers rest on F and J � those keys usually have small raised bumps to help you find them without looking. Your pinkies rest on A and semicolon. Thumbs hover over the spacebar. This is the home row: every finger returns here after each keystroke."
+      keywords: [
+        "home row",
+        "finger placement",
+        "where to put fingers",
+        "hand position",
+        "basic finger position",
+        "starting position",
+        "home keys",
+      ],
+      answer:
+        "Place your left hand on A, S, D, F and your right hand on J, K, L, semicolon. Your index fingers rest on F and J � those keys usually have small raised bumps to help you find them without looking. Your pinkies rest on A and semicolon. Thumbs hover over the spacebar. This is the home row: every finger returns here after each keystroke.",
     },
     {
       topic: "touch typing",
-      keywords: ["touch type", "touch typing", "how to touch type", "learn touch typing", "touch typing method", "typed without looking"],
-      answer: "Touch typing means typing without looking at the keyboard. You memorize where each key is and use the correct finger for each key. Start with the home row, practice each finger's territory, and gradually increase speed. Never look down at the keyboard while typing � your eyes should stay on the screen or text."
+      keywords: [
+        "touch type",
+        "touch typing",
+        "how to touch type",
+        "learn touch typing",
+        "touch typing method",
+        "typed without looking",
+      ],
+      answer:
+        "Touch typing means typing without looking at the keyboard. You memorize where each key is and use the correct finger for each key. Start with the home row, practice each finger's territory, and gradually increase speed. Never look down at the keyboard while typing � your eyes should stay on the screen or text.",
     },
     {
       topic: "how to type faster",
-      keywords: ["type faster", "increase speed", "speed up", "faster typing", "improve wpm", "how to go faster", "boost speed", "typing faster"],
-      answer: "To type faster: use all ten fingers, never look at the keyboard, keep a steady rhythm, and practice daily for 15-20 minutes. Focus on accuracy first � speed follows naturally. Use common letter pairs and words as practice material, not random characters. Try decreasing the difficulty setting slightly so you can focus on flow, then raise it as you improve."
+      keywords: [
+        "type faster",
+        "increase speed",
+        "speed up",
+        "faster typing",
+        "improve wpm",
+        "how to go faster",
+        "boost speed",
+        "typing faster",
+      ],
+      answer:
+        "To type faster: use all ten fingers, never look at the keyboard, keep a steady rhythm, and practice daily for 15-20 minutes. Focus on accuracy first � speed follows naturally. Use common letter pairs and words as practice material, not random characters. Try decreasing the difficulty setting slightly so you can focus on flow, then raise it as you improve.",
     },
     {
       topic: "improve accuracy",
-      keywords: ["accuracy", "improve accuracy", "make fewer mistakes", "reduce errors", "more accurate", "typing accurately", "less mistakes"],
-      answer: "To improve accuracy: slow down slightly and focus on hitting the right key, use proper finger assignments (each finger has specific keys), and never rush. Turn on punctuation in settings to practice real-world text. If you keep making the same mistake on one key, that key's assigned finger may be wrong � check a finger chart and retrain that key slowly."
+      keywords: [
+        "accuracy",
+        "improve accuracy",
+        "make fewer mistakes",
+        "reduce errors",
+        "more accurate",
+        "typing accurately",
+        "less mistakes",
+      ],
+      answer:
+        "To improve accuracy: slow down slightly and focus on hitting the right key, use proper finger assignments (each finger has specific keys), and never rush. Turn on punctuation in settings to practice real-world text. If you keep making the same mistake on one key, that key's assigned finger may be wrong � check a finger chart and retrain that key slowly.",
     },
     {
       topic: "posture",
-      keywords: ["posture", "sit", "back pain", "neck pain", "shoulder", "body position", "ergonomics", "comfortable position", "how to sit"],
-      answer: "Sit up straight with your feet flat on the floor. Keep your elbows at about 90 degrees and your forearms parallel to the desk. The monitor should be at eye level about an arm's length away. Keep your wrists straight or slightly lowered � never bent upward. Take a break every 30 minutes to stand and stretch."
+      keywords: [
+        "posture",
+        "sit",
+        "back pain",
+        "neck pain",
+        "shoulder",
+        "body position",
+        "ergonomics",
+        "comfortable position",
+        "how to sit",
+      ],
+      answer:
+        "Sit up straight with your feet flat on the floor. Keep your elbows at about 90 degrees and your forearms parallel to the desk. The monitor should be at eye level about an arm's length away. Keep your wrists straight or slightly lowered � never bent upward. Take a break every 30 minutes to stand and stretch.",
     },
     {
       topic: "RSI",
-      keywords: ["rsi", "repetitive strain", "carpal tunnel", "wrist pain", "hand pain", "injury", "pain", "sore", "strain"],
-      answer: "Repetitive Strain Injury comes from prolonged, repeated motions. To prevent it: take a 5-minute break every 25-30 minutes, stretch your fingers and wrists, keep wrists neutral, use a wrist rest for support (not while typing), and reduce force � press keys gently. If pain persists, see a doctor. The 20-20-20 rule helps too: every 20 minutes, look at something 20 feet away for 20 seconds."
+      keywords: [
+        "rsi",
+        "repetitive strain",
+        "carpal tunnel",
+        "wrist pain",
+        "hand pain",
+        "injury",
+        "pain",
+        "sore",
+        "strain",
+      ],
+      answer:
+        "Repetitive Strain Injury comes from prolonged, repeated motions. To prevent it: take a 5-minute break every 25-30 minutes, stretch your fingers and wrists, keep wrists neutral, use a wrist rest for support (not while typing), and reduce force � press keys gently. If pain persists, see a doctor. The 20-20-20 rule helps too: every 20 minutes, look at something 20 feet away for 20 seconds.",
     },
     {
       topic: "keyboard types",
-      keywords: ["keyboard", "mechanical", "membrane", "switch", "key feel", "keyboard type", "best keyboard", "key press", "clicky", "quiet keyboard"],
-      answer: "Keyboards fall into two main types: Mechanical (each key has a dedicated switch � Cherry MX Red for light presses, Blue for clicky feedback, Brown for a balanced feel) and Membrane (dome-shaped contacts under each key � quieter and cheaper). Mechanical keyboards last longer and feel more precise, while membrane keyboards are lighter and more affordable. For typing practice, any keyboard works � start with what you have."
+      keywords: [
+        "keyboard",
+        "mechanical",
+        "membrane",
+        "switch",
+        "key feel",
+        "keyboard type",
+        "best keyboard",
+        "key press",
+        "clicky",
+        "quiet keyboard",
+      ],
+      answer:
+        "Keyboards fall into two main types: Mechanical (each key has a dedicated switch � Cherry MX Red for light presses, Blue for clicky feedback, Brown for a balanced feel) and Membrane (dome-shaped contacts under each key � quieter and cheaper). Mechanical keyboards last longer and feel more precise, while membrane keyboards are lighter and more affordable. For typing practice, any keyboard works � start with what you have.",
     },
     {
       topic: "WPM explained",
-      keywords: ["wpm", "words per minute", "how wpm is calculated", "what is wpm", "wpm formula", "net wpm", "typing speed"],
-      answer: "WPM (Words Per Minute) = (correct characters / 5) / minutes elapsed. The 5 comes from the average English word length. Net WPM subtracts errors; Raw WPM counts all keystrokes. A typical beginner types 20-30 WPM, an intermediate typer 40-60 WPM, and professionals often exceed 80-100 WPM. World records exceed 200 WPM."
+      keywords: [
+        "wpm",
+        "words per minute",
+        "how wpm is calculated",
+        "what is wpm",
+        "wpm formula",
+        "net wpm",
+        "typing speed",
+      ],
+      answer:
+        "WPM (Words Per Minute) = (correct characters / 5) / minutes elapsed. The 5 comes from the average English word length. Net WPM subtracts errors; Raw WPM counts all keystrokes. A typical beginner types 20-30 WPM, an intermediate typer 40-60 WPM, and professionals often exceed 80-100 WPM. World records exceed 200 WPM.",
     },
     {
       topic: "accuracy explained",
-      keywords: ["accuracy", "accuracy percentage", "how accuracy is calculated", "accuracy formula", "what is accuracy"],
-      answer: "Accuracy = (correct characters / total characters typed) x 100. Perfect accuracy is 100%. Most typists aim for 95-99%. If your accuracy is below 90%, slow down and focus on correct fingering rather than speed. The app shows accuracy in real time so you can track it."
+      keywords: [
+        "accuracy",
+        "accuracy percentage",
+        "how accuracy is calculated",
+        "accuracy formula",
+        "what is accuracy",
+      ],
+      answer:
+        "Accuracy = (correct characters / total characters typed) x 100. Perfect accuracy is 100%. Most typists aim for 95-99%. If your accuracy is below 90%, slow down and focus on correct fingering rather than speed. The app shows accuracy in real time so you can track it.",
     },
     {
       topic: "warm up",
-      keywords: ["warm up", "warmup", "warm up fingers", "before typing", "prepare", "how to warm up", "fingers exercise", "stretching"],
-      answer: "Warm up before typing: spread and stretch your fingers for 10 seconds, make slow fists and release, rotate your wrists, and type the home row slowly 5-10 times. Then try short 15-second bursts of increasing speed. This primes your muscles and improves early-test accuracy."
+      keywords: [
+        "warm up",
+        "warmup",
+        "warm up fingers",
+        "before typing",
+        "prepare",
+        "how to warm up",
+        "fingers exercise",
+        "stretching",
+      ],
+      answer:
+        "Warm up before typing: spread and stretch your fingers for 10 seconds, make slow fists and release, rotate your wrists, and type the home row slowly 5-10 times. Then try short 15-second bursts of increasing speed. This primes your muscles and improves early-test accuracy.",
     },
     {
       topic: "practice routine",
-      keywords: ["practice", "routine", "how to practice", "drill", "daily practice", "training", "exercise", "how to improve"],
-      answer: "A good practice routine: 5 minutes warm-up, 10 minutes focused typing (choose a mode that matches your level, aiming for accuracy over speed), 5 minutes on problem keys (any key you keep hitting incorrectly). Practice 15-20 minutes daily. Track progress via Statistics � look for steady WPM improvement over weeks."
+      keywords: [
+        "practice",
+        "routine",
+        "how to practice",
+        "drill",
+        "daily practice",
+        "training",
+        "exercise",
+        "how to improve",
+      ],
+      answer:
+        "A good practice routine: 5 minutes warm-up, 10 minutes focused typing (choose a mode that matches your level, aiming for accuracy over speed), 5 minutes on problem keys (any key you keep hitting incorrectly). Practice 15-20 minutes daily. Track progress via Statistics � look for steady WPM improvement over weeks.",
     },
     {
       topic: "problem keys",
-      keywords: ["problem keys", "hard keys", "troublesome", "weak fingers", "which fingers", "finger weakness", "stumbling", "stuck on a key"],
-      answer: "Identify keys you mistype often � these are your problem keys. Common ones are the left pinky (Tab, Caps Lock, Shift, A), right pinky (Enter, Shift, semicolon), and the ring fingers. Practice them in isolation by typing just that key repeatedly, then in common letter combinations that use it."
+      keywords: [
+        "problem keys",
+        "hard keys",
+        "troublesome",
+        "weak fingers",
+        "which fingers",
+        "finger weakness",
+        "stumbling",
+        "stuck on a key",
+      ],
+      answer:
+        "Identify keys you mistype often � these are your problem keys. Common ones are the left pinky (Tab, Caps Lock, Shift, A), right pinky (Enter, Shift, semicolon), and the ring fingers. Practice them in isolation by typing just that key repeatedly, then in common letter combinations that use it.",
     },
     {
       topic: "shift keys",
-      keywords: ["shift", "capital", "uppercase", "capital letter", "shift key", "how to use shift", "holding shift"],
-      answer: "Use the opposite-hand pinky for Shift: left Shift is pressed by the left pinky, right Shift by the right pinky. Avoid reaching across your body for the far Shift key. If you often mistype capitals, practice common uppercase words (I, A, S, D, F words). Some typists prefer right Shift for all capitals because the reach is shorter."
+      keywords: [
+        "shift",
+        "capital",
+        "uppercase",
+        "capital letter",
+        "shift key",
+        "how to use shift",
+        "holding shift",
+      ],
+      answer:
+        "Use the opposite-hand pinky for Shift: left Shift is pressed by the left pinky, right Shift by the right pinky. Avoid reaching across your body for the far Shift key. If you often mistype capitals, practice common uppercase words (I, A, S, D, F words). Some typists prefer right Shift for all capitals because the reach is shorter.",
     },
     {
       topic: "typing history",
-      keywords: ["history of typing", "typing history", "typewriter", "who invented", "when typing started", "origin", "first keyboard", "first typewriter"],
-      answer: "The first typewriter patent was filed in 1868 by Christopher Latham Sholes. The QWERTY layout was designed in 1873 to prevent mechanical jamming � it separated common letter pairs. Touch typing was developed in the 1880s. The Dvorak layout (1936) aimed to be more efficient but QWERTY remained dominant due to market inertia."
+      keywords: [
+        "history of typing",
+        "typing history",
+        "typewriter",
+        "who invented",
+        "when typing started",
+        "origin",
+        "first keyboard",
+        "first typewriter",
+      ],
+      answer:
+        "The first typewriter patent was filed in 1868 by Christopher Latham Sholes. The QWERTY layout was designed in 1873 to prevent mechanical jamming � it separated common letter pairs. Touch typing was developed in the 1880s. The Dvorak layout (1936) aimed to be more efficient but QWERTY remained dominant due to market inertia.",
     },
     {
       topic: "QWERTY",
-      keywords: ["qwerty", "dvorak", "keyboard layout", "layout", "layout difference", "alternate layout", "best layout"],
-      answer: "QWERTY is the standard keyboard layout, designed to prevent typewriter jams. Dvorak is an alternative optimized for speed � common letters fall on the home row and alternate hands. Colemak is a newer alternative that keeps QWERTY's shortcuts while improving flow. Switching requires retraining but can yield 10-20% speed gains for dedicated typists."
+      keywords: [
+        "qwerty",
+        "dvorak",
+        "keyboard layout",
+        "layout",
+        "layout difference",
+        "alternate layout",
+        "best layout",
+      ],
+      answer:
+        "QWERTY is the standard keyboard layout, designed to prevent typewriter jams. Dvorak is an alternative optimized for speed � common letters fall on the home row and alternate hands. Colemak is a newer alternative that keeps QWERTY's shortcuts while improving flow. Switching requires retraining but can yield 10-20% speed gains for dedicated typists.",
     },
     {
       topic: "world record",
-      keywords: ["world record", "fastest typer", "record", "guinness", "fastest", "top speed"],
-      answer: "The fastest typing speed recorded on standard tests is around 212-216 WPM. Stella Pajunas set an early record at 216 WPM in 1946. On modern computers, typists regularly surpass 170-180 WPM in competition. World records can change � they depend on the test method and keyboard used."
+      keywords: [
+        "world record",
+        "fastest typer",
+        "record",
+        "guinness",
+        "fastest",
+        "top speed",
+      ],
+      answer:
+        "The fastest typing speed recorded on standard tests is around 212-216 WPM. Stella Pajunas set an early record at 216 WPM in 1946. On modern computers, typists regularly surpass 170-180 WPM in competition. World records can change � they depend on the test method and keyboard used.",
     },
     {
       topic: "common mistakes",
-      keywords: ["mistakes", "common mistakes", "errors", "wrong keys", "hunting and pecking", "look at keyboard", "bad habits"],
-      answer: "Common typing mistakes: looking at the keyboard, using wrong fingers for keys, pressing too hard, not using all fingers, and poor posture. The biggest one is hunting and pecking (typing two or two keys at a time). Break this by learning proper finger placement and practicing slowly until correct habits become automatic."
+      keywords: [
+        "mistakes",
+        "common mistakes",
+        "errors",
+        "wrong keys",
+        "hunting and pecking",
+        "look at keyboard",
+        "bad habits",
+      ],
+      answer:
+        "Common typing mistakes: looking at the keyboard, using wrong fingers for keys, pressing too hard, not using all fingers, and poor posture. The biggest one is hunting and pecking (typing two or two keys at a time). Break this by learning proper finger placement and practicing slowly until correct habits become automatic.",
     },
     {
       topic: "breathing",
-      keywords: ["breathing", "breathe", "breath", "oxygen", "focus", "concentration"],
-      answer: "Breathe steadily while typing � many beginners hold their breath during intense typing, which causes tension and fatigue. Keep a natural breathing rhythm. If you feel tense, take a deep breath, exhale slowly, and consciously relax your shoulders and hands."
+      keywords: [
+        "breathing",
+        "breathe",
+        "breath",
+        "oxygen",
+        "focus",
+        "concentration",
+      ],
+      answer:
+        "Breathe steadily while typing � many beginners hold their breath during intense typing, which causes tension and fatigue. Keep a natural breathing rhythm. If you feel tense, take a deep breath, exhale slowly, and consciously relax your shoulders and hands.",
     },
     {
       topic: "numbers typing",
-      keywords: ["numbers", "number row", "typing numbers", "number pad", "numpad", "numeric entry"],
-      answer: "For the number row (top of keyboard): use the same fingers that type the home row keys above them (e.g., right index types 6 and 7, right middle types 8). For large-scale number entry, a numpad (10-key) is faster � most typists reach 80-120 WPM on a dedicated numpad. Practice the Numbers mode in this app."
+      keywords: [
+        "numbers",
+        "number row",
+        "typing numbers",
+        "number pad",
+        "numpad",
+        "numeric entry",
+      ],
+      answer:
+        "For the number row (top of keyboard): use the same fingers that type the home row keys above them (e.g., right index types 6 and 7, right middle types 8). For large-scale number entry, a numpad (10-key) is faster � most typists reach 80-120 WPM on a dedicated numpad. Practice the Numbers mode in this app.",
     },
     {
       topic: "code typing",
-      keywords: ["code", "programming", "coding", "symbols", "symbols typing", "brackets", "semicolons", "special characters"],
-      answer: "Coding requires frequent symbol use � brackets, semicolons, operators. Touch typing for code means keeping your right pinky on semicolon/colon, using both hands for brackets, and practicing common patterns like (), {}, [], ->, and =>. The Code mode in this app drills exactly these symbols."
+      keywords: [
+        "code",
+        "programming",
+        "coding",
+        "symbols",
+        "symbols typing",
+        "brackets",
+        "semicolons",
+        "special characters",
+      ],
+      answer:
+        "Coding requires frequent symbol use � brackets, semicolons, operators. Touch typing for code means keeping your right pinky on semicolon/colon, using both hands for brackets, and practicing common patterns like (), {}, [], ->, and =>. The Code mode in this app drills exactly these symbols.",
     },
     {
       topic: "shortcuts",
-      keywords: ["shortcut", "keyboard shortcut", "tab", "escape", "ctrl", "key shortcut", "hotkey"],
-      answer: "In this app: Tab restarts the test, Escape stops/resets, Ctrl+Enter starts a new test. In general computing: Ctrl+C/V/Z/X are universal, Ctrl+A selects all, Ctrl+F finds, Alt+Tab switches windows, and Windows+D shows desktop."
+      keywords: [
+        "shortcut",
+        "keyboard shortcut",
+        "tab",
+        "escape",
+        "ctrl",
+        "key shortcut",
+        "hotkey",
+      ],
+      answer:
+        "In this app: Tab restarts the test, Escape stops/resets, Ctrl+Enter starts a new test. In general computing: Ctrl+C/V/Z/X are universal, Ctrl+A selects all, Ctrl+F finds, Alt+Tab switches windows, and Windows+D shows desktop.",
     },
     {
       topic: "typing styles",
-      keywords: ["hunt and peck", "hunting", "pecking", "two finger", "two-finger", "hybrid", "style", "typing method"],
-      answer: "Hunt-and-peck uses two fingers and looks at the keyboard � slow and tiring. Two-finger typing is a step up but still inefficient. Hybrid typing mixes both approaches. True touch typing uses all ten fingers without looking. The switch is worth it: touch typists are typically 2-3 times faster and far less fatigued."
+      keywords: [
+        "hunt and peck",
+        "hunting",
+        "pecking",
+        "two finger",
+        "two-finger",
+        "hybrid",
+        "style",
+        "typing method",
+      ],
+      answer:
+        "Hunt-and-peck uses two fingers and looks at the keyboard � slow and tiring. Two-finger typing is a step up but still inefficient. Hybrid typing mixes both approaches. True touch typing uses all ten fingers without looking. The switch is worth it: touch typists are typically 2-3 times faster and far less fatigued.",
     },
     {
       topic: "left hand fingers",
-      keywords: ["left hand", "left fingers", "left pinky", "left ring", "left middle", "left index", "pinky", "which finger"],
-      answer: "Left hand fingers: pinky = Q, A, Z, 1; ring = W, S, X, 2; middle = E, D, C, 3; index = R, F, V, T, G, B, 4, 5. Your left index also covers 4 and 5 on the number row. Strong left-hand fingers come from regular practice since the left hand does more work in English typing."
+      keywords: [
+        "left hand",
+        "left fingers",
+        "left pinky",
+        "left ring",
+        "left middle",
+        "left index",
+        "pinky",
+        "which finger",
+      ],
+      answer:
+        "Left hand fingers: pinky = Q, A, Z, 1; ring = W, S, X, 2; middle = E, D, C, 3; index = R, F, V, T, G, B, 4, 5. Your left index also covers 4 and 5 on the number row. Strong left-hand fingers come from regular practice since the left hand does more work in English typing.",
     },
     {
       topic: "right hand fingers",
-      keywords: ["right hand", "right fingers", "right pinky", "right ring", "right middle", "right index", "right hand keys"],
-      answer: "Right hand fingers: pinky = P, semicolon, slash, period, 0, dash, equals; ring = O, L, K, 9; middle = I, comma, 8; index = U, H, N, Y, J, M, 6, 7. Right pinky is the busiest � pressing Enter, Shift, and many punctuation keys."
+      keywords: [
+        "right hand",
+        "right fingers",
+        "right pinky",
+        "right ring",
+        "right middle",
+        "right index",
+        "right hand keys",
+      ],
+      answer:
+        "Right hand fingers: pinky = P, semicolon, slash, period, 0, dash, equals; ring = O, L, K, 9; middle = I, comma, 8; index = U, H, N, Y, J, M, 6, 7. Right pinky is the busiest � pressing Enter, Shift, and many punctuation keys.",
     },
     {
       topic: "quote test",
-      keywords: ["quote", "quote mode", "typing quotes", "practice quotes", "meaningful text", "sentences"],
-      answer: "Quote mode gives you real quotes to type. It helps practice punctuation, capitalization, and sentence flow � more realistic than random words. It's great for building accuracy because each word matters to the sentence's meaning."
+      keywords: [
+        "quote",
+        "quote mode",
+        "typing quotes",
+        "practice quotes",
+        "meaningful text",
+        "sentences",
+      ],
+      answer:
+        "Quote mode gives you real quotes to type. It helps practice punctuation, capitalization, and sentence flow � more realistic than random words. It's great for building accuracy because each word matters to the sentence's meaning.",
     },
     {
       topic: "zen mode",
-      keywords: ["zen", "zen mode", "free type", "no timer", "relaxed", "practice freely", "no pressure"],
-      answer: "Zen mode has no timer, targets, or scoring � you type freely to build muscle memory without pressure. Great for warm-ups, relaxation, or when you want to practice without the stress of the clock. Press Escape to finish and see your stats."
+      keywords: [
+        "zen",
+        "zen mode",
+        "free type",
+        "no timer",
+        "relaxed",
+        "practice freely",
+        "no pressure",
+      ],
+      answer:
+        "Zen mode has no timer, targets, or scoring � you type freely to build muscle memory without pressure. Great for warm-ups, relaxation, or when you want to practice without the stress of the clock. Press Escape to finish and see your stats.",
     },
     {
       topic: "custom text",
-      keywords: ["custom", "custom text", "paste text", "my own text", "practice specific", "specific words", "words practice"],
-      answer: "Custom mode lets you paste any text to practice. Click the Custom mode button, paste your text, and use it. Great for practicing specific vocabulary like medical terms, legal words, or code."
+      keywords: [
+        "custom",
+        "custom text",
+        "paste text",
+        "my own text",
+        "practice specific",
+        "specific words",
+        "words practice",
+      ],
+      answer:
+        "Custom mode lets you paste any text to practice. Click the Custom mode button, paste your text, and use it. Great for practicing specific vocabulary like medical terms, legal words, or code.",
     },
     {
       topic: "difficulty levels",
-      keywords: ["difficulty", "easy", "medium", "hard", "hard words", "difficult words", "word difficulty", "level"],
-      answer: "Difficulty levels affect the word list: Easy uses common short words (3-5 letters), Medium uses everyday longer words (5-8 letters), Hard uses complex multi-syllable words (9+ letters). Beginners should start at Easy/Medium and work up. Hard mode is great for competition practice."
+      keywords: [
+        "difficulty",
+        "easy",
+        "medium",
+        "hard",
+        "hard words",
+        "difficult words",
+        "word difficulty",
+        "level",
+      ],
+      answer:
+        "Difficulty levels affect the word list: Easy uses common short words (3-5 letters), Medium uses everyday longer words (5-8 letters), Hard uses complex multi-syllable words (9+ letters). Beginners should start at Easy/Medium and work up. Hard mode is great for competition practice.",
     },
     {
       topic: "punctuation",
-      keywords: ["punctuation", "period", "comma", "full stop", "period key", "comma key", "symbol keys", "toggle punctuation"],
-      answer: "Punctuation is off by default to avoid frustration for beginners. Turn it on when you're comfortable with the home row � it adds periods, commas, question marks, etc. every few words, with correct capitalization after sentences. Toggle it from the Punctuation pill on the test config bar."
+      keywords: [
+        "punctuation",
+        "period",
+        "comma",
+        "full stop",
+        "period key",
+        "comma key",
+        "symbol keys",
+        "toggle punctuation",
+      ],
+      answer:
+        "Punctuation is off by default to avoid frustration for beginners. Turn it on when you're comfortable with the home row � it adds periods, commas, question marks, etc. every few words, with correct capitalization after sentences. Toggle it from the Punctuation pill on the test config bar.",
     },
     {
       topic: "numbers toggle",
-      keywords: ["numbers toggle", "numbers on", "include numbers", "number key", "toggle numbers"],
-      answer: "The Numbers toggle injects random numbers into the word text. It's a separate practice layer � good for building familiarity with the number row. Toggle it from the Numbers pill next to Punctuation."
+      keywords: [
+        "numbers toggle",
+        "numbers on",
+        "include numbers",
+        "number key",
+        "toggle numbers",
+      ],
+      answer:
+        "The Numbers toggle injects random numbers into the word text. It's a separate practice layer � good for building familiarity with the number row. Toggle it from the Numbers pill next to Punctuation.",
     },
     {
       topic: "settings",
-      keywords: ["settings", "theme", "font", "font size", "sound", "caret", "live wpm", "live accuracy", "change setting"],
-      answer: "Settings are under the Settings tab: choose theme (dark/light/midnight/ocean/forest/sunset/minimal), font (JetBrains Mono, Fira Code, Roboto Mono, Courier Prime, System Mono), font size, sound effects, smooth caret, live WPM/accuracy display, and default test mode."
+      keywords: [
+        "settings",
+        "theme",
+        "font",
+        "font size",
+        "sound",
+        "caret",
+        "live wpm",
+        "live accuracy",
+        "change setting",
+      ],
+      answer:
+        "Settings are under the Settings tab: choose theme (dark/light/midnight/ocean/forest/sunset/minimal), font (JetBrains Mono, Fira Code, Roboto Mono, Courier Prime, System Mono), font size, sound effects, smooth caret, live WPM/accuracy display, and default test mode.",
     },
     {
       topic: "statistics",
-      keywords: ["statistics", "stats", "history", "personal best", "past tests", "previous results", "how many tests", "track record", "wpm history"],
-      answer: "The Statistics tab shows your overview (tests completed, average/best WPM and accuracy, total time), a WPM history graph, recent tests table, and personal bests by mode. All data is stored locally in your browser � nothing leaves your device."
+      keywords: [
+        "statistics",
+        "stats",
+        "history",
+        "personal best",
+        "past tests",
+        "previous results",
+        "how many tests",
+        "track record",
+        "wpm history",
+      ],
+      answer:
+        "The Statistics tab shows your overview (tests completed, average/best WPM and accuracy, total time), a WPM history graph, recent tests table, and personal bests by mode. All data is stored locally in your browser � nothing leaves your device.",
     },
     {
       topic: "leaderboard",
-      keywords: ["leaderboard", "rank", "ranking", "score", "high score", "compare", "best scores"],
-      answer: "The Leaderboard shows the top 50 results for each mode/time setting. It's stored locally on your device (guest mode) � no server is needed. Filter by 15s/30s/60s/120s or word count modes."
+      keywords: [
+        "leaderboard",
+        "rank",
+        "ranking",
+        "score",
+        "high score",
+        "compare",
+        "best scores",
+      ],
+      answer:
+        "The Leaderboard shows the top 50 results for each mode/time setting. It's stored locally on your device (guest mode) � no server is needed. Filter by 15s/30s/60s/120s or word count modes.",
     },
     {
       topic: "consistency",
-      keywords: ["consistency", "steady", "inconsistent", "fluctuate", "wpm variation", "bad consistency"],
-      answer: "Consistency measures how steady your WPM was during the test (100% = perfectly even pace). High consistency means you maintained speed throughout; low consistency usually means you started fast and faded, or had bursts with pauses. Build consistency by practicing at a sustainable pace."
+      keywords: [
+        "consistency",
+        "steady",
+        "inconsistent",
+        "fluctuate",
+        "wpm variation",
+        "bad consistency",
+      ],
+      answer:
+        "Consistency measures how steady your WPM was during the test (100% = perfectly even pace). High consistency means you maintained speed throughout; low consistency usually means you started fast and faded, or had bursts with pauses. Build consistency by practicing at a sustainable pace.",
     },
     {
       topic: "keyboard cleaning",
-      keywords: ["clean", "keyboard cleaning", "dust", "debris", "stuck key", "key not working", "maintenance"],
-      answer: "To clean your keyboard: turn it upside down and gently shake, use compressed air between keys, wipe surfaces with a microfiber cloth slightly dampened with isopropyl alcohol. For mechanical keyboards, keycaps can be removed with a puller for deep cleaning. Clean monthly for best performance."
+      keywords: [
+        "clean",
+        "keyboard cleaning",
+        "dust",
+        "debris",
+        "stuck key",
+        "key not working",
+        "maintenance",
+      ],
+      answer:
+        "To clean your keyboard: turn it upside down and gently shake, use compressed air between keys, wipe surfaces with a microfiber cloth slightly dampened with isopropyl alcohol. For mechanical keyboards, keycaps can be removed with a puller for deep cleaning. Clean monthly for best performance.",
     },
     {
       topic: "typing for kids",
-      keywords: ["kids", "children", "child", "teach", "learn typing", "kids typing", "beginner child"],
-      answer: "For kids: start with short 10-minute sessions, use Easy difficulty, make it fun with game-like goals, and celebrate milestones. Use programs designed for their age. Most children can learn touch typing basics within a few weeks of regular practice."
+      keywords: [
+        "kids",
+        "children",
+        "child",
+        "teach",
+        "learn typing",
+        "kids typing",
+        "beginner child",
+      ],
+      answer:
+        "For kids: start with short 10-minute sessions, use Easy difficulty, make it fun with game-like goals, and celebrate milestones. Use programs designed for their age. Most children can learn touch typing basics within a few weeks of regular practice.",
     },
     {
       topic: "typing for programming",
-      keywords: ["programming", "coding", "developer", "software", "code typing", "developer typing"],
-      answer: "Programmers benefit from code typing mode, which drills common symbols and keywords. Set Custom mode to paste code you write often. Aim for 70-90 WPM with 95%+ accuracy for productive coding. Touch typing frees your eyes for logic instead of hunting keys."
+      keywords: [
+        "programming",
+        "coding",
+        "developer",
+        "software",
+        "code typing",
+        "developer typing",
+      ],
+      answer:
+        "Programmers benefit from code typing mode, which drills common symbols and keywords. Set Custom mode to paste code you write often. Aim for 70-90 WPM with 95%+ accuracy for productive coding. Touch typing frees your eyes for logic instead of hunting keys.",
     },
     {
       topic: "right shift",
-      keywords: ["right shift", "right shift key", "enter hand", "which shift", "use right shift"],
-      answer: "The right Shift key is generally preferred by touch typists because your right pinky is already positioned near Enter, semicolon, and other right-side keys. Using right Shift reduces the stretch compared to the left Shift key."
+      keywords: [
+        "right shift",
+        "right shift key",
+        "enter hand",
+        "which shift",
+        "use right shift",
+      ],
+      answer:
+        "The right Shift key is generally preferred by touch typists because your right pinky is already positioned near Enter, semicolon, and other right-side keys. Using right Shift reduces the stretch compared to the left Shift key.",
     },
     {
       topic: "backspace",
-      keywords: ["backspace", "backspace key", "correct mistake", "undo key", "how to correct"],
-      answer: "The backspace key is one of the most-used keys � even touch typists use it constantly. In this app, backspace count is tracked. Too many backspaces usually mean slow key recognition or wrong finger placement. Focus on accuracy over speed and the backspace count will drop."
+      keywords: [
+        "backspace",
+        "backspace key",
+        "correct mistake",
+        "undo key",
+        "how to correct",
+      ],
+      answer:
+        "The backspace key is one of the most-used keys � even touch typists use it constantly. In this app, backspace count is tracked. Too many backspaces usually mean slow key recognition or wrong finger placement. Focus on accuracy over speed and the backspace count will drop.",
     },
     {
       topic: "typing with music",
-      keywords: ["music", "background", "background music", "sound", "with music", "listen to music"],
-      answer: "Some typists find background music helpful for focus, but avoid lyrics � they compete with the words on screen. Instrumental music, lo-fi beats, or ambient sounds work well. In this app, turn on sound effects in Settings for typing feedback."
+      keywords: [
+        "music",
+        "background",
+        "background music",
+        "sound",
+        "with music",
+        "listen to music",
+      ],
+      answer:
+        "Some typists find background music helpful for focus, but avoid lyrics � they compete with the words on screen. Instrumental music, lo-fi beats, or ambient sounds work well. In this app, turn on sound effects in Settings for typing feedback.",
     },
     {
       topic: "typing speed chart",
-      keywords: ["speed chart", "wpm level", "beginner", "intermediate", "advanced", "professional", "slow", "fast", "what is good wpm", "average wpm"],
-      answer: "Typing speed ranges: Below 20 WPM = beginner, 20-40 WPM = novice, 40-60 WPM = intermediate, 60-80 WPM = advanced, 80-100 WPM = professional, above 100 WPM = expert. World-class typists exceed 150 WPM. Average office worker types around 40-50 WPM."
+      keywords: [
+        "speed chart",
+        "wpm level",
+        "beginner",
+        "intermediate",
+        "advanced",
+        "professional",
+        "slow",
+        "fast",
+        "what is good wpm",
+        "average wpm",
+      ],
+      answer:
+        "Typing speed ranges: Below 20 WPM = beginner, 20-40 WPM = novice, 40-60 WPM = intermediate, 60-80 WPM = advanced, 80-100 WPM = professional, above 100 WPM = expert. World-class typists exceed 150 WPM. Average office worker types around 40-50 WPM.",
     },
 
     {
       topic: "Wazmi Ali",
-      keywords: ["wazmi", "wazmi ali", "who is wazmi", "creator", "about the app", "who made", "what is typingwazmi", "what is keystride", "Owner of TypingWazmi", "Owner of KeyStride"],
-      answer: "Wazmi Ali is a passionate Artificial Intelligence and Machine Learning student with a strong interest in full-stack development, cloud technologies, and practical software engineering. With a background in B.Tech in Artificial Intelligence & Machine Learning and a Diploma in Computer Science & Engineering, Wazmi has developed a diverse technical skill set spanning web development, data processing, machine learning, and API development. Through hands-on projects such as the Heart Disease Prediction System and responsive web applications, Wazmi demonstrates a strong commitment to continuous learning and applying modern technologies to solve real-world problems. Wazmi Ali is the owner of TypingWazmi and KeyStride."
+      keywords: [
+        "wazmi",
+        "wazmi ali",
+        "who is wazmi",
+        "creator",
+        "about the app",
+        "who made",
+        "what is typingwazmi",
+        "what is keystride",
+        "Owner of TypingWazmi",
+        "Owner of KeyStride",
+      ],
+      answer:
+        "Wazmi Ali is a passionate Artificial Intelligence and Machine Learning student with a strong interest in full-stack development, cloud technologies, and practical software engineering. With a background in B.Tech in Artificial Intelligence & Machine Learning and a Diploma in Computer Science & Engineering, Wazmi has developed a diverse technical skill set spanning web development, data processing, machine learning, and API development. Through hands-on projects such as the Heart Disease Prediction System and responsive web applications, Wazmi demonstrates a strong commitment to continuous learning and applying modern technologies to solve real-world problems. Wazmi Ali is the owner of TypingWazmi and KeyStride.",
     },
-
 
     {
       topic: "privacy",
-      keywords: ["privacy", "private", "data", "safe", "where is data stored", "local storage", "who sees my data", "is data shared"],
-      answer: "Privacy: nothing you type or any of your statistics leaves this browser. Everything is stored locally in your browser's local storage on this device only. No server, no cloud, no account required. Use the Clear all local data button in Settings if you want to reset everything."
+      keywords: [
+        "privacy",
+        "private",
+        "data",
+        "safe",
+        "where is data stored",
+        "local storage",
+        "who sees my data",
+        "is data shared",
+      ],
+      answer:
+        "Privacy: nothing you type or any of your statistics leaves this browser. Everything is stored locally in your browser's local storage on this device only. No server, no cloud, no account required. Use the Clear all local data button in Settings if you want to reset everything.",
     },
     {
       topic: "thank you",
-      keywords: ["thank", "thanks", "great", "love", "good", "appreciate", "awesome", "nice"],
-      answer: "Happy typing! If you have questions about technique, the app, or anything typing-related, just ask � everything I know about typing is stored right here in this chat and works fully offline."
+      keywords: [
+        "thank",
+        "thanks",
+        "great",
+        "love",
+        "good",
+        "appreciate",
+        "awesome",
+        "nice",
+      ],
+      answer:
+        "Happy typing! If you have questions about technique, the app, or anything typing-related, just ask � everything I know about typing is stored right here in this chat and works fully offline.",
     },
     {
       topic: "greeting",
-      keywords: ["hello", "hi", "hey", "how are you", "what's up", "greetings", "good morning", "good afternoon", "good evening"],
-      answer: "Hey! I'm your typing coach. Ask me about typing techniques, how to improve speed, keyboard posture, WPM calculation, or anything typing-related. I'm fully offline and always ready to help."
+      keywords: [
+        "hello",
+        "hi",
+        "hey",
+        "how are you",
+        "what's up",
+        "greetings",
+        "good morning",
+        "good afternoon",
+        "good evening",
+      ],
+      answer:
+        "Hey! I'm your typing coach. Ask me about typing techniques, how to improve speed, keyboard posture, WPM calculation, or anything typing-related. I'm fully offline and always ready to help.",
     },
     {
       topic: "what can you do",
-      keywords: ["what can you", "what do you", "help me", "what help", "can you", "capabilities", "who you", "how can you help"],
-      answer: "I'm your offline typing coach. I can help with: typing technique, finger placement, improving speed and accuracy, posture tips, keyboard advice, understanding WPM/accuracy, practice routines, typing history and records, and explaining this app's features. Ask me anything about typing!"
+      keywords: [
+        "what can you",
+        "what do you",
+        "help me",
+        "what help",
+        "can you",
+        "capabilities",
+        "who you",
+        "how can you help",
+      ],
+      answer:
+        "I'm your offline typing coach. I can help with: typing technique, finger placement, improving speed and accuracy, posture tips, keyboard advice, understanding WPM/accuracy, practice routines, typing history and records, and explaining this app's features. Ask me anything about typing!",
     },
     {
       topic: "goodbye",
-      keywords: ["bye", "goodbye", "see you", "farewell", "later", "good night", "done", "finished", "thank you"],
-      answer: "Happy typing! Remember to sit straight, use all ten fingers, and keep your eyes on the screen. Ask me anything next time you need typing tips!"
+      keywords: [
+        "bye",
+        "goodbye",
+        "see you",
+        "farewell",
+        "later",
+        "good night",
+        "done",
+        "finished",
+        "thank you",
+      ],
+      answer:
+        "Happy typing! Remember to sit straight, use all ten fingers, and keep your eyes on the screen. Ask me anything next time you need typing tips!",
     },
   ];
 
   function findBestAnswer(question) {
     var q = question.toLowerCase().trim();
-    var tokens = q.split(/[^a-z0-9]+/).filter(function(w) { return w.length > 1; });
+    var tokens = q.split(/[^a-z0-9]+/).filter(function (w) {
+      return w.length > 1;
+    });
 
-    var scoredTopics = TYPING_KNOWLEDGE.map(function(entry) {
+    var scoredTopics = TYPING_KNOWLEDGE.map(function (entry) {
       var score = 0;
-      entry.keywords.forEach(function(kw) {
+      entry.keywords.forEach(function (kw) {
         if (q.indexOf(kw) >= 0) {
-          score += kw.split(/[^a-z0-9]+/).filter(function(w) { return w.length > 1; }).length;
+          score += kw.split(/[^a-z0-9]+/).filter(function (w) {
+            return w.length > 1;
+          }).length;
         }
       });
-      tokens.forEach(function(tok) {
-        entry.keywords.forEach(function(kw) {
+      tokens.forEach(function (tok) {
+        entry.keywords.forEach(function (kw) {
           if (kw.indexOf(tok) >= 0) {
             score += 0.5;
           }
@@ -1921,7 +2370,9 @@
       return { entry: entry, score: score };
     });
 
-    scoredTopics.sort(function(a, b) { return b.score - a.score; });
+    scoredTopics.sort(function (a, b) {
+      return b.score - a.score;
+    });
     if (scoredTopics[0] && scoredTopics[0].score > 0) {
       return scoredTopics[0].entry;
     }
@@ -1970,11 +2421,11 @@
       fab.setAttribute("aria-expanded", "false");
     }
 
-    fab.addEventListener("click", function() {
+    fab.addEventListener("click", function () {
       panel.classList.contains("show") ? closePanel() : openPanel();
     });
     closeBtn.addEventListener("click", closePanel);
-    document.addEventListener("keydown", function(e) {
+    document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && panel.classList.contains("show")) closePanel();
     });
 
@@ -1987,10 +2438,14 @@
         if (answer) {
           botDiv.textContent = answer.answer;
         } else {
-          botDiv.textContent = FALLBACK_REPLIES[Math.floor(Math.random() * FALLBACK_REPLIES.length)];
+          botDiv.textContent =
+            FALLBACK_REPLIES[
+              Math.floor(Math.random() * FALLBACK_REPLIES.length)
+            ];
         }
       } catch (err) {
-        botDiv.textContent = "Sorry, something went wrong. Try asking another question.";
+        botDiv.textContent =
+          "Sorry, something went wrong. Try asking another question.";
       }
       messagesEl.scrollTop = messagesEl.scrollHeight;
       input.disabled = false;
@@ -1998,7 +2453,7 @@
       input.focus();
     }
 
-    form.addEventListener("submit", function(e) {
+    form.addEventListener("submit", function (e) {
       e.preventDefault();
       var q = input.value.trim();
       if (!q) return;
@@ -2008,7 +2463,7 @@
       respond(q);
     });
 
-    suggestions.addEventListener("click", function(e) {
+    suggestions.addEventListener("click", function (e) {
       var chip = e.target.closest(".chip");
       if (!chip || chip.disabled) return;
       var q = chip.textContent;
@@ -2018,11 +2473,13 @@
       respond(q);
     });
 
-    addMessage("bot", "Hi! I'm your offline typing coach. Ask me about technique, speed tips, accuracy, posture, or how this app works - everything runs locally, no internet needed.");
+    addMessage(
+      "bot",
+      "Hi! I'm your offline typing coach. Ask me about technique, speed tips, accuracy, posture, or how this app works - everything runs locally, no internet needed.",
+    );
   }
 
-
-/* ---------------------------------------------------------
+  /* ---------------------------------------------------------
          INIT
       --------------------------------------------------------- */
   function init() {
