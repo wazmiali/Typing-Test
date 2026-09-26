@@ -44,6 +44,25 @@ Because the application is client-side, user data is stored locally in the brows
 
 ---
 
+# 📸 Screenshots
+
+
+### Typing Test
+
+<img width="1891" height="847" alt="image" src="https://github.com/user-attachments/assets/f7d64b14-d3e5-4be9-a514-eee04b8f0d30" />
+
+---
+
+<img width="1917" height="850" alt="image" src="https://github.com/user-attachments/assets/02478e34-1eae-4ade-9721-82f90ab60602" />
+
+---
+
+### Settings
+
+<img width="1917" height="852" alt="image" src="https://github.com/user-attachments/assets/480af8d7-d673-429b-b8c8-85ac67a9d806" />
+
+---
+
 # ✨ Features
 
 ## ⌨️ Typing Test Modes
@@ -1340,46 +1359,6 @@ screenshots/
 Then add them to the README with:
 
 ```markdown
-## Screenshots
-
-### Typing Test
-
-<img width="1891" height="847" alt="image" src="https://github.com/user-attachments/assets/f7d64b14-d3e5-4be9-a514-eee04b8f0d30" />
-
----
-
-<img width="1917" height="850" alt="image" src="https://github.com/user-attachments/assets/02478e34-1eae-4ade-9721-82f90ab60602" />
-
----
-
-### Settings
-
-<img width="1917" height="852" alt="image" src="https://github.com/user-attachments/assets/480af8d7-d673-429b-b8c8-85ac67a9d806" />
-
----
-
-# 🗂️ Quick Reference
-
-| Area | Current Implementation |
-|---|---|
-| Frontend | HTML5, CSS3, JavaScript |
-| Framework | Vanilla JavaScript |
-| Backend | None |
-| Database | None |
-| Storage | Browser Local Storage |
-| Hosting | GitHub Pages |
-| Typing Engine | Client-side JavaScript |
-| Graph | Canvas API |
-| Sounds | Web Audio API |
-| Accounts | Local profile only |
-| Leaderboard | Local only |
-| Cloud Sync | Not available |
-| Build Tool | Not required |
-| Package Manager | Not required |
-| Main File | `TypingTestApp.html` |
-
----
-
 # 🧠 Technical Summary
 
 TypingWazmi is a **single-page client-side typing application**.
