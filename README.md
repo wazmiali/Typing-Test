@@ -1344,24 +1344,17 @@ Then add them to the README with:
 
 ### Typing Test
 
-![Typing Test](screenshots/typing-test.png)
+<img width="1891" height="847" alt="image" src="https://github.com/user-attachments/assets/f7d64b14-d3e5-4be9-a514-eee04b8f0d30" />
 
-### Results
+---
 
-![Results](screenshots/results.png)
+<img width="1917" height="850" alt="image" src="https://github.com/user-attachments/assets/02478e34-1eae-4ade-9721-82f90ab60602" />
 
-### Statistics
-
-![Statistics](screenshots/statistics.png)
-
-### Leaderboard
-
-![Leaderboard](screenshots/leaderboard.png)
+---
 
 ### Settings
 
-![Settings](screenshots/settings.png)
-```
+<img width="1917" height="852" alt="image" src="https://github.com/user-attachments/assets/480af8d7-d673-429b-b8c8-85ac67a9d806" />
 
 ---
 
