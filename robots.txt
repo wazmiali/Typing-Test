@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://typing-test-flame-six.vercel.app/sitemap.xml
