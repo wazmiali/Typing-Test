@@ -38,7 +38,7 @@ The application can be used for:
 - Programming/code typing practice
 - Custom-text practice
 - Reviewing previous typing performance
-- Comparing current results with personal bests
+- Comparing current results with personal bests.
 
 Because the application is client-side, user data is stored locally in the browser rather than in a remote database.
 
